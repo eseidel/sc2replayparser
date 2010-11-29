@@ -23,6 +23,12 @@ class Parser(object):
             setattr(self, data.name, value)
         return self
 
+    def assert_min_max(value, min_value, max_value):
+        if min_value:
+            assert value >= min_value, "exceeded min value of %s (was %s)" % (min_value, value)
+        if max_value:
+            assert value <= max_value, "exceeded max value of %s (was %s)" % (max_value, value)
+
     def __repr__(self):
         return u"<%s: %s>" % (self.__class__.__name__, unicode(self))
 

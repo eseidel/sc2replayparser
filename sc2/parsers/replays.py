@@ -22,10 +22,7 @@ import mpq
 class AsciiString(Parser):
     def serialize(self, fp, length, min_value=None, max_value=None, **kwargs):
         value = fp.readbits(length) >> 3
-        if min_value:
-            assert value >= min_value, "exceeded min value of %s (was %s)" % (min_value, value)
-        if max_value:
-            assert value <= max_value, "exceeded max value of %s (was %s)" % (max_value, value)
+        self.assert_min_max(value, min_value, max_value)
         return fp.read(value)
 
 UnicodeString = AsciiString
@@ -33,10 +30,7 @@ UnicodeString = AsciiString
 class Integer(Parser):
     def serialize(self, fp, length, min_value=None, max_value=None, **kwargs):
         value = fp.readbits(length)
-        if min_value:
-            assert value >= min_value, "exceeded min value of %s (was %s)" % (min_value, value)
-        if max_value:
-            assert value <= max_value, "exceeded max value of %s (was %s)" % (max_value, value)
+        self.assert_min_max(value, min_value, max_value)
         return value
 
 class Boolean(Parser):
@@ -46,10 +40,7 @@ class Boolean(Parser):
 class Byte(Parser):
     def serialize(self, fp, length, min_value=None, max_value=None, **kwargs):
         value = fp.readbits(length)
-        if min_value:
-            assert value >= min_value, "exceeded min value of %s (was %s)" % (min_value, value)
-        if max_value:
-            assert value <= max_value, "exceeded max value of %s (was %s)" % (max_value, value)
+        self.assert_min_max(value, min_value, max_value)
         return value
 
 class List(Parser):
@@ -58,10 +49,7 @@ class List(Parser):
 
     def serialize(self, fp, length, min_value=None, max_value=None, **kwargs):
         value = fp.readbits(length)
-        if min_value:
-            assert value >= min_value, "exceeded min value of %s (was %s)" % (min_value, value)
-        if max_value:
-            assert value <= max_value, "exceeded max value of %s (was %s)" % (max_value, value)
+        self.assert_min_max(value, min_value, max_value)
         values = []
         for n in range(value):
             values.append(self.type().serialize(fp))
@@ -84,10 +72,7 @@ class Enum(Parser):
         
     def serialize(self, fp, length, min_value=None, max_value=None, **kwargs):
         value = fp.readbits(length)
-        if min_value:
-            assert value >= min_value, "exceeded min value of %s (was %s)" % (min_value, value)
-        if max_value:
-            assert value <= max_value, "exceeded max value of %s (was %s)" % (max_value, value)
+        self.assert_min_max(value, min_value, max_value)
         return self.choices[value]
 
 
