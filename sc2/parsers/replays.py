@@ -15,7 +15,7 @@ You can also test w/ this file directly:
 
 """
 from common.bitstream import BitStream
-from common.parser import Parser
+from common.parser import P, Parser
 
 import mpq
 
@@ -221,6 +221,6 @@ class ReplayParser(object):
 
     @property
     def info(self):
-        fp = BitStream(str(self.mpq['replay.info']), debug=True)
+        fp = BitStream(str(self.mpq['replay.initData']), debug=True)
         p = ReplayInfo()
         return p.serialize(fp)

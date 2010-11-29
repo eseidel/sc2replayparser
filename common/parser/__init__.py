@@ -19,7 +19,7 @@ class Parser(object):
                 min_value=data.min_value,
                 max_value=data.max_value,
             )
-            #print '%s = %s' % (data.name, value)
+            print '%s = %s' % (data.name, value)
             setattr(self, data.name, value)
         return self
 
