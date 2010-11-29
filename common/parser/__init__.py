@@ -23,7 +23,7 @@ class Parser(object):
             setattr(self, data.name, value)
         return self
 
-    def assert_min_max(value, min_value, max_value):
+    def assert_min_max(self, value, min_value, max_value):
         if min_value:
             assert value >= min_value, "exceeded min value of %s (was %s)" % (min_value, value)
         if max_value:
